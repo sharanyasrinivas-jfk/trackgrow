@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meeraq Grow – Learning Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Meeraq <em>Grow</em></h1>
+  <div class="lvl"><span>Level <b id="lvl">1</b></span><div class="bar"><i id="xpfill"></i></div><small id="xptxt"></small></div>
+  <div class="streak"><span aria-hidden="true">🔥</span> <b id="streak">0</b> day streak</div>
+</header>
+
+<div class="layout">
+  <aside class="card tree-card">
+    <svg id="tree" viewBox="0 0 300 300" role="img" aria-label="Your learning tree"></svg>
+    <h2 id="stage"></h2>
+    <p id="next" class="muted"></p>
+    <h3>Last 5 weeks</h3>
+    <div id="heat" class="heat"></div>
+  </aside>
+
+  <main>
+    <nav class="tabs" aria-label="Sections">
+      <button class="on" data-tab="today">Today</button><button data-tab="goals">Goals</button>
+      <button data-tab="timer">Study timer</button><button data-tab="marks">Marks</button><button data-tab="stats">Progress</button>
+    </nav>
+
+    <section id="today" class="tab card">
+      <div class="head"><h2>Today's quests</h2><span id="todaysum" class="muted"></span></div>
+      <form id="taskform" class="row">
+        <input name="text" placeholder="e.g. Solve 10 algebra problems" required maxlength="80">
+        <select name="subject" class="subj"></select>
+        <select name="xp"><option value="10">Easy +10</option><option value="20" selected>Medium +20</option><option value="40">Hard +40</option></select>
+        <button class="btn">Add</button>
+      </form>
+      <ul id="tasklist" class="list"></ul>
+      <button id="addsub" class="link">+ Add a subject</button>
+    </section>
+
+    <section id="goals" class="tab card" hidden>
+      <h2>Weekly study goals</h2>
+      <form id="goalform" class="row">
+        <select name="subject" class="subj"></select>
+        <input name="hours" type="number" min="1" max="40" placeholder="Hours this week" required>
+        <button class="btn">Set goal</button>
+      </form>
+      <ul id="goallist" class="list"></ul>
+      <p class="muted">Reach a goal to earn +50 XP. Progress comes from your study timer sessions.</p>
+    </section>
+
+    <section id="timer" class="tab card" hidden>
+      <h2>Study timer</h2>
+      <div id="clock" class="clock">25:00</div>
+      <div class="row center">
+        <select id="tsub" class="subj"></select>
+        <select id="dur"><option>15</option><option selected>25</option><option>45</option><option>60</option></select>
+        <button id="startbtn" class="btn">Start</button>
+        <button id="stopbtn" class="btn ghost" hidden>Stop &amp; save</button>
+      </div>
+      <form id="logform" class="row">
+        <input name="min" type="number" min="1" max="600" placeholder="Minutes studied offline" required>
+        <button class="btn ghost">Log time</button>
+      </form>
+      <p class="muted">1 minute of study = 1 XP. Keep the tab open while the timer runs.</p>
+    </section>
+
+    <section id="marks" class="tab card" hidden>
+      <h2>Marks &amp; grades</h2>
+      <form id="markform" class="row">
+        <select name="subject" class="subj"></select>
+        <input name="title" placeholder="Test name" required maxlength="40">
+        <input name="score" type="number" min="0" step="any" placeholder="Score" required>
+        <input name="max" type="number" min="1" step="any" placeholder="Out of" value="100" required>
+        <input name="date" type="date" required>
+        <button class="btn">Save +15 XP</button>
+      </form>
+      <div id="markchart"></div>
+      <div id="avgs" class="chips"></div>
+      <ul id="marklist" class="list"></ul>
+    </section>
+
+    <section id="stats" class="tab card" hidden>
+      <h2>Your progress</h2>
+      <div id="kpis" class="kpis"></div>
+      <div class="charts">
+        <div><h3>XP earned (7 days)</h3><div id="xpchart"></div></div>
+        <div><h3>Minutes studied (7 days)</h3><div id="minchart"></div></div>
+      </div>
+      <h3>Time by subject</h3><div id="subjchart"></div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <span class="muted">Saved in this browser (localStorage).</span>
+  <button id="export" class="link">Export backup</button>
+  <label class="link">Import backup<input id="import" type="file" accept="application/json" hidden></label>
+  <button id="demo" class="link">Load demo data</button>
+  <button id="reset" class="link">Reset</button>
+</footer>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
